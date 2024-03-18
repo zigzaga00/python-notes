@@ -309,3 +309,110 @@ abcde
 abcdefgh
 ```
 
+## Numbers and Mathematical Operations
+
+We can use mathematical operators with **integers**, **floats** and **decimals**.
+
+- add +
+- subtract -
+- multiply *
+- divide (always returns a float) /
+- exponent **
+- floor division (always returns an integer) //
+- mod (returns the remainder) %
+
+We can round decimal numbers to a specified number of decimal places using the `round()` function.
+
+```python=
+a = 8
+b = 4
+print(a + b)
+print(a - b)
+print(a * b)
+print(a / b)
+print(a ** b)
+print(a // b)
+print(a % b)
+
+c = 100 / 3
+rounded_c = round(c, 2)
+print(rounded_c)
+```
+
+```
+12
+4
+32
+2.0
+4096
+2
+0
+33.33
+```
+
+# Truthiness and Falsiness
+
+Python objects have an inherent **truthiness** or **falsiness** to them. Examples of falsy objects are None data type, empty strings and the value 0. Examples of truthy objects are values above 0, a list of values and a string.
+
+# Comparison Operators
+
+We can use the following signs to make comparisons.
+
+- `==` equal to
+- `!=` not equal to
+- `>=` greater than or equal to
+- `<=` less than or equal to
+
+We use `is` to check if two objects have the same place in memory.
+
+# Assignment Operators
+
+We can use **shorthand assignment operators** which assign new values to variables. An example is `score += 1` to replace `score = score + 1`
+
+- +=
+- -=
+- *=
+- /=
+
+# Logical Operators
+
+We can use `and`, `or` and `not`.
+
+For a condition which uses `and` to be true, **both parts** of the condition must be true.
+
+For a condition which uses `or` to be true, only **one part** of the condition must be true.
+
+Using `not` makes the statement true if the opposite is true - it negates.
+
+```python=
+a = [1, 2, 3]
+b = [1, 2, 3]
+c = None
+print(a == b)
+print(a != b)
+print(a is b)
+print(not c)
+n = 5
+print(n <= 8)
+n *= 8
+print(n <= 8)
+print(True and True)
+print(False or True)
+print(True or False)
+print(not True)
+print(not False)
+```
+
+```
+True
+False
+False
+True
+True
+False
+True
+True
+True
+False
+True
+```
