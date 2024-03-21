@@ -416,3 +416,69 @@ True
 False
 True
 ```
+# Control Flow - If Statements
+
+We can change the flow of an algorithm's execution using **control flow** statements.
+
+`If` statements execute a block of code if they are true. They skip the block of code if the statement (condition) is false.
+
+We can add more cases using `elif` and we can use `else` as a final part.
+
+We can nest `if` statements.
+
+```python=
+age = 21
+if age >= 18:
+    print("You are an adult.")
+elif age >= 13:
+    print("You are a teenager.")
+else:
+    print("You are a child.")
+```
+
+```
+You are an adult.
+```
+
+```python=
+choice = "west"
+if choice == "west":
+    print("You see a red door, a yellow door and a blue door.")
+    choice_2 = "blue"
+    if choice_2 == "red":
+        print("A monster eats you!")
+    elif choice_2 == "yellow":
+        print("You suddently explode!")
+    elif choice_2 == "blue":
+        print("You escape - well done!")
+    else:
+        print("There is no such door - you set on fire!")
+else:
+    print("You went the wrong way and get lost.")
+```
+
+```
+You see a red door, a yellow door and a blue door.
+You escape - well done!
+```
+
+```python=
+first_name = "Billy"
+second_name = "Bob"
+if first_name == "Billy" and second_name == "Bob":
+    print("Hello, Billy Bob!")
+
+name_1 = "Mary"
+name_2 = "Susan"
+if name_1 == "Mary" or name_2 == "Mary":
+    print("Hello, Mary!")
+
+if name_2 != "Mary":
+    print("Sorry, I don't know who you are.")
+```
+
+```
+Hello, Billy Bob!
+Hello, Mary!
+Sorry, I don't know who you are.
+```
