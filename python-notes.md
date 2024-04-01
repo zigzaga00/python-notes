@@ -684,3 +684,29 @@ print(nl4)
 [['E', 'F', 'G', 'H']]
 ```
 
+## Functions
+
+Functions are processes for executing tasks - they are used to save rewriting code. They can accept input and return output so they can give different results depending on the data passed to them.
+
+Functions let us keep our code D.R.Y. - do not repeat yourself. This is the opposite of W.E.T. - write everything twice. This is because we can call the function time and time again.
+
+Functions also let us abstract code away from development - we write the code in a function and then we don't have to see it or worry about it.
+
+Functions let us logically order our code so it makes sense - this gets us away from spaghetti code because the functions do discrete tasks so we can organise our code better.
+
+### Syntax
+
+We use the `def` keyword along with `():` A block of code follows the `:` and parameters can be specified inside the `()`
+
+We can then call the defined functions by specifying their name along with `()` and arguments included if they are needed.
+
+```python=
+def greeting():
+    print("hello!")
+
+greeting()
+```
+
+```
+hello!
+```
