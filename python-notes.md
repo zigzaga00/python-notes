@@ -483,3 +483,204 @@ Hello, Mary!
 Sorry, I don't know who you are.
 ```
 
+## Lists
+
+Lists are one type of collection or data structure in python. There are many types of collection in python.
+
+Collections are just collections of data types - they are needed so we can structure data - they are like bags which can have items added to them or removed from them.
+
+Lists are *mutuable* data types. We can add and remove values to them and they remain in the same space in memory. They store objects in an ordered list. We can store other data types such as strings, integers and floats in lists. We can store lists inside lists.
+
+We can mix data types in lists, but this is not recommended. We should use the same data type in a list.
+
+Lists are ordered so the elements which are added to them have their order preserved.
+
+Lists are created using `[]`
+
+We can index and slice lists like we can strings. Lists are similar to strings because lists are sequences just like strings are. Strings are sequences of characters while lists are sequences of objects. Both strings and lists are *iterables* which means python can iterate over them.
+
+There are *list methods* which we can use on lists. We look at ways we can grow lists below.
+
+>[!NOTE]
+>Lists take up less memory than other collections such as dictionaries, but they use more computational power to search through
+
+```python=
+names = ["charlie", "susan", "bob", "alice"]
+print(names)
+print(names[3])
+print(names[:2])
+print(id(names))
+
+# append()
+names.append("freddy") # adds an element at the end of a list
+print(names)
+print(id(names))
+
+names_copy = names.copy()
+print(id(names_copy))
+
+# insert()
+names_copy.insert(0, "lisa") # inserts an element at a position
+print(names_copy)
+print(names)
+
+colours = ["red", "orange"]
+colours_two = ["yellow", "green", "blue", "indigo", "violet"]
+print(colours)
+print(colours_two)
+
+# extend() - this mutates the original list so be careful with it
+# the += operator when used with lists is a shortcut for extend()
+colours.extend(colours_two)
+print(colours)
+
+# we can do the same as extend() using +=
+days = ["Monday", "Tuesday", "Wednesday"]
+days_two = ["Thursday", "Friday", "Saturday", "Sunday"]
+print(days)
+print(days_two)
+days += days_two
+print(days)
+
+# we can do the same as extend() but in an immutable way with +
+letters = ["a", "b"]
+letters_two = ["c", "d", "e"]
+new_letters = letters + letters_two
+print(new_letters)
+print(id(letters))
+print(id(letters_two))
+print(id(new_letters))
+```
+
+```
+['charlie', 'susan', 'bob', 'alice']
+alice
+['charlie', 'susan']
+140558714044992
+['charlie', 'susan', 'bob', 'alice', 'freddy']
+140558714044992
+140558714045504
+['lisa', 'charlie', 'susan', 'bob', 'alice', 'freddy']
+['charlie', 'susan', 'bob', 'alice', 'freddy']
+['red', 'orange']
+['yellow', 'green', 'blue', 'indigo', 'violet']
+['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+['Monday', 'Tuesday', 'Wednesday']
+['Thursday', 'Friday', 'Saturday', 'Sunday']
+['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+['a', 'b', 'c', 'd', 'e']
+140558714049984
+140558714052096
+140558714052736
+```
+
+### Other List Methods
+
+There are other list methods. We can use them to remove items from lists or perform other actions on them.
+
+```python=
+# checking for membership
+a = "bob" in names
+b = "rupert" in names
+print(a)
+print(b)
+
+# searching lists
+print(names.index("susan"))
+print(min(names))
+print(max(names))
+
+# sorting lists - mutable solution
+names.sort() # sorts the list in place - mutable
+print(names)
+
+# sorting lists - immutable solution
+unsorted_fruit = ["pineapple", "cherry", "banana", "apple"]
+sorted_fruit = sorted(unsorted_fruit) # immutable solution
+print(unsorted_fruit)
+print(sorted_fruit)
+
+# removing items
+fish = ["tetra", "cod", "catfish", "danio", "gastro", "cod"]
+print(fish)
+fish.remove("cod") # we need to know the value
+print(fish) # remove() only removes the first value if > 1 present
+
+# using pop with an index
+rt_fish = fish.pop(2) # pop() returns the popped value
+print(fish)
+print(rt_fish)
+fish.pop() # pop() removes the last element by default
+print(fish)
+```
+
+```
+True
+False
+1
+alice
+susan
+['alice', 'bob', 'charlie', 'freddy', 'susan']
+['pineapple', 'cherry', 'banana', 'apple']
+['apple', 'banana', 'cherry', 'pineapple']
+['tetra', 'cod', 'catfish', 'danio', 'gastro', 'cod']
+['tetra', 'catfish', 'danio', 'gastro', 'cod']
+['tetra', 'catfish', 'gastro', 'cod']
+danio
+['tetra', 'catfish', 'gastro']
+```
+
+### Nested Lists
+
+We can store lists inside lists - these are nested lists aka multi-dimensional lists. We do this when we want to store data as a table or a matrix.
+
+We can index the list we want to use and then the item inside it.
+
+```python=
+nl1 = [["a", "b"], ["c", "d"], ["e", "f", "g", "h"]]
+print(nl1[1][0])
+```
+
+```
+c
+```
+
+We can iterate through items in nested lists by using nested for loops.
+
+```python=
+nl1 = [["a", "b"], ["c", "d"], ["e", "f", "g", "h"]]
+for i in nl1:
+    for val in i:
+        print(f"List: {i} Value: {val}")
+```
+
+```
+List: ['a', 'b'] Value: a
+List: ['a', 'b'] Value: b
+List: ['c', 'd'] Value: c
+List: ['c', 'd'] Value: d
+List: ['e', 'f', 'g', 'h'] Value: e
+List: ['e', 'f', 'g', 'h'] Value: f
+List: ['e', 'f', 'g', 'h'] Value: g
+List: ['e', 'f', 'g', 'h'] Value: h
+```
+
+We can also use *list comprehension* with nested lists.
+
+```python=
+nl2 = [[val.upper() for val in i] for i in nl1]
+print(nl1)
+print(nl2)
+nl3 = [[val for val in i] for i in nl1 if 'c' in i]
+print(nl3)
+nl4 = [[val.upper() for val in i] for i in nl1 if 'e' in i]
+print(nl4)
+```
+
+```
+[['a', 'b'], ['c', 'd'], ['e', 'f', 'g', 'h']]
+[['A', 'B'], ['C', 'D'], ['E', 'F', 'G', 'H']]
+[['c', 'd']]
+[['E', 'F', 'G', 'H']]
+```
+
