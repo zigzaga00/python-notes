@@ -2,7 +2,7 @@
 
 This notebook covers various aspects of learning the python programming language.
 
-# Variables
+## Variables
 
 A variable is a label which points to a value which is stored in memory. The values could be **mutable** or **immutable**.
 
@@ -40,7 +40,7 @@ print(c)
 3
 ```
 
-## Variable Reassignment
+### Variable Reassignment
 
 We can reassign new values to variables. We need to remember that in python everything is an object. Variables have **object identifiers** - we can use these to see and understand more about what is happening with variable reassignment.
 
@@ -67,7 +67,7 @@ print(id(alias_x))
 139630845591920
 ```
 
-## Varibale Naming Conventions
+### Varibale Naming Conventions
 
 In python, we like to use **snake_case** for variable names. The name should be something which is related to the value which is assigned to it.
 
@@ -82,7 +82,7 @@ Python classes should be named as **UpperCamelCase** aka **PascalCase**.
 
 Double UNDERscore variables - **dunder** - variables which start and end with two underscores are private and are generally meant to be left as they are.
 
-# Data Types
+## Data Types
 
 There are lots of **data types** in python, but some are used more than others.
 
@@ -167,7 +167,7 @@ print(type(c))
 <class 'int'>
 ```
 
-## Strings
+### Strings
 
 Strings are created using `""` or `''` - we need to be consistent in the open and close characters used.
 
@@ -175,7 +175,7 @@ Strings are sequences of characters which are enclosed in the `""` or `''`
 
 Strings are **immutable** data types.
 
-### Escape Characters
+#### Escape Characters
 
 We can escape strings using `\` before specific characters.
 
@@ -200,7 +200,7 @@ He said, "I like food."
 This \ is a back-slash.
 ```
 
-### String Methods
+#### String Methods
 
 There are lots of methods which we can call on strings.
 
@@ -238,7 +238,7 @@ This is a message. Goodbye, Billy-Bob!
 Hello, Jimmy Boy - you are 22 years old.
 ```
 
-### Formatting Strings
+#### Formatting Strings
 
 The `.format()` method is one way to combine data types into a string.
 
@@ -260,7 +260,7 @@ Hello, Jane - you are 18 years old.
 Jane - in ten years you will be 28 years old.
 ```
 
-### String Indexing and Slicing
+#### String Indexing and Slicing
 
 We can retrieve specific parts of a string using **indexing** or **slicing**.
 
@@ -309,7 +309,7 @@ abcde
 abcdefgh
 ```
 
-## Numbers and Mathematical Operations
+### Numbers and Mathematical Operations
 
 We can use mathematical operators with **integers**, **floats** and **decimals**.
 
@@ -350,11 +350,11 @@ print(rounded_c)
 33.33
 ```
 
-# Truthiness and Falsiness
+## Truthiness and Falsiness
 
 Python objects have an inherent **truthiness** or **falsiness** to them. Examples of falsy objects are None data type, empty strings and the value 0. Examples of truthy objects are values above 0, a list of values and a string.
 
-# Comparison Operators
+## Comparison Operators
 
 We can use the following signs to make comparisons.
 
@@ -365,7 +365,7 @@ We can use the following signs to make comparisons.
 
 We use `is` to check if two objects have the same place in memory.
 
-# Assignment Operators
+## Assignment Operators
 
 We can use **shorthand assignment operators** which assign new values to variables. An example is `score += 1` to replace `score = score + 1`
 
@@ -374,7 +374,7 @@ We can use **shorthand assignment operators** which assign new values to variabl
 - *=
 - /=
 
-# Logical Operators
+## Logical Operators
 
 We can use `and`, `or` and `not`.
 
@@ -416,7 +416,7 @@ True
 False
 True
 ```
-# Control Flow - If Statements
+## Control Flow - If Statements
 
 We can change the flow of an algorithm's execution using **control flow** statements.
 
@@ -482,3 +482,4 @@ Hello, Billy Bob!
 Hello, Mary!
 Sorry, I don't know who you are.
 ```
+
