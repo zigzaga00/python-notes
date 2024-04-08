@@ -710,3 +710,522 @@ greeting()
 ```
 hello!
 ```
+
+## Object Oriented Programming
+
+OOP is a way of doing programming - it is a paradigm related to how we go about writing code and developing projects.
+
+OOP lets us *encapsulate* data and behaviour in one object. This way of programming developed to let us model the real world in our code. Alan Kay was involved in this - he saw how organisms could communicate with one another without knowing much about the internal workings of each other. We do this all of the time. I communicate with my television without knowing how it works inside. I need a clearly defined interface (a remote control in this example) in order to do this. The interface is very important. Once an object has been created, its internal workings can be hidden from the programmer - they just need to know how to interact with it (use it in their programs).
+
+OOP uses code to represent things from the real world such as a car, a deck of cards, a song, a schedule etc.
+
+We use classes and objects in OOP.
+
+We can see OOP as being like a factory - the *class* - from which we can create *instances* of it which are independent *objects* which are seperate from the class. Each instance of a class can be unique and different to the other instances.
+
+### Classes
+
+A class is essentialy a blueprint - a template - for how instances (objects) created from it are. The class contains *attributes* for its objects and *methods* which they can use.
+
+>[!NOTE]
+>A *method* is a *function* which is attached to an *object*
+
+A class is like a cookie cutter - the objects created using it can be different even though they have the same attributes and methods.
+
+### Instances (Objects)
+
+Objects are constructed from a class blueprint - they contain the class properties and methods.
+
+### Encapsulation
+
+We aim to *encapsulate* (group) public and private attributes and methods into a class. Private just means it is only supposed to be used and referenced inside the class itself whereas public means it can be referenced and used elsewhere. This lets us represent different things which we need in our program. If we are making a poker game, for example, we could encapsulate attributes and methods to do with a user into one class, a deck of cards into another class, a card into another class and so on. We will then be able to better understand our code and work with it to create the game of poker.
+
+### Abstraction
+
+This means we hide the internal workings of objects and provide an interface to work with them.
+
+```python
+# a simple example of how objects are individual and unique
+class Cookie(object): # no need to use object here in Python3
+    pass
+
+c1 = Cookie()
+c2 = Cookie()
+c3 = Cookie()
+
+print(id(c1))
+print(id(c2))
+print(id(c3))
+```
+
+```
+140581476118784
+140581476114992
+140581476121232
+```
+
+### Attributes
+
+Attributes are the properties of objects - they are the data part of our classes.
+
+We could see attributes as variables which belong to the local namespace of objects.
+
+```python
+# setting object attributes for c1
+c1.buttons = "blue"
+c1.scarf = "green"
+# getting c1 attributes
+print(c1.buttons)
+print(c1.scarf)
+# setting attributes for c2
+c2.buttons = "red"
+c2.scarf = "orange"
+# getting c2 attributes
+print(c2.buttons)
+print(c2.scarf)
+# setting attributes for c3
+c3.buttons = "yellow"
+c3.scarf = "purple"
+# getting c3 attributes
+print(c3.buttons)
+print(c3.scarf)
+```
+
+```
+blue
+green
+red
+orange
+yellow
+purple
+```
+
+### Methods
+
+Methods are functions which are attached to objects. They define the behaviours which objects can perform.
+
+Methods are the interface - how we can interact with the object.
+
+In order to define a method, we define a function inside a class. We use the *self* keyword to reference the object we are calling it on and we use dot notation to call it `mary.fullname()` for example.
+
+```python
+# working with methods - simple
+class User(object):
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+    def can_drive(self, min_age):
+        return self.age >= min_age
+
+mary = User()
+mary.age = 20
+mary.first_name = "Mary"
+mary.last_name = "Brown"
+print(mary.full_name())
+print(mary.can_drive(18))
+```
+
+```
+Mary Brown
+True
+```
+
+```python
+john = User()
+john.age = 16
+john.first_name = "John"
+john.last_name = "Jones"
+print(john.full_name())
+print(john.can_drive(18))
+```
+
+```
+John Jones
+False
+```
+
+### __init___
+
+We can use the `__init__` method to set attributes on objects when they are instansiated from a class.
+
+This is useful because we usually want instances of a class to have lots of attributes which are the same but with different values.
+
+Using the __init__ method to initialise objects is a good way to make sure that they are instantiated correctly and consistently.
+
+__init__ is a *dunder* method - these are also known as *magic methods* because we do not call it explicitly - python calls it itself.
+
+>[!IMPORTANT]
+>We should include an __init__ method in every class we create
+
+```python
+# using the __init__ method to initialise objects
+class Fish(object):
+    def __init__(self, order, colour, length):
+        self.order = order
+        self.colour = colour
+        self.length = length
+```
+
+```python
+billybob = Fish("catfish", "brown", 5)
+print(billybob.order)
+print(billybob.colour)
+print(billybob.length)
+```
+
+```
+catfish
+brown
+5
+```
+
+### Class Attributes
+
+These are attributes which are linked with a class rather than individual objects which have been instantiated from the class. This means that all the objects created from the class can get the class attributes.
+
+```python
+class Bike(object):
+    DEFAULT_COLOUR = "blue"
+    def __init__(self, color):
+        self.color = color
+
+bike_1 = Bike("red")
+print(bike_1.DEFAULT_COLOUR)
+print(id(bike_1.DEFAULT_COLOUR))
+bike_2 = Bike("red")
+print(id(bike_2.DEFAULT_COLOUR))
+print(bike_1.color)
+print(id(bike_1.color))
+print(bike_2.color)
+print(id(bike_2.color))
+bike_1.color = "yellow"
+print(bike_1.color)
+print(id(bike_1.color))
+print(bike_2.color)
+print(id(bike_2.color))
+Bike.DEFAULT_COLOUR = "green"
+print(bike_1.DEFAULT_COLOUR)
+print(bike_2.DEFAULT_COLOUR)
+print(id(bike_1.DEFAULT_COLOUR))
+print(id(bike_2.DEFAULT_COLOUR))
+```
+
+```
+blue
+140572951488944
+140572951488944
+red
+140572951488752
+red
+140572951488752
+yellow
+140572951488880
+red
+140572951488752
+green
+green
+140572951488816
+140572951488816
+```
+
+### Get and Set
+
+In the example above, both `Bike` objects are getting the class attribute `DEFAULT_COLOUR` from the class. Python first of all looks into the object itself for the variable `DEFAULT_COLOUR` but does not find it so bubbles up to the *class memory space* and does find it.
+
+If we try to set `DEFAULT_COLOUR` from an instance of `Bike` it will not work - Python will create a variable called `DEFAULT_COLOUR` in the *object memory space* and it will find this one first before the class attribute each subsequent time.
+
+```python
+bike_1.DEFAULT_COLOUR = "red"
+print(bike_1.DEFAULT_COLOUR)
+print(id(bike_1.DEFAULT_COLOUR))
+print(Bike.DEFAULT_COLOUR)
+print(id(Bike.DEFAULT_COLOUR))
+print(bike_2.DEFAULT_COLOUR)
+print(id(bike_2.DEFAULT_COLOUR))
+```
+
+```
+red
+140134846294256
+blue
+140134846294448
+blue
+140134846294448
+```
+
+### Accessing Class Attributes from Methods
+
+We tend to access class attributes from methods. An example is to set default values if a value is not passed to the init method. We can reference the class attribute from inside methods using the self keyword or the name of the class.
+
+```python
+class Car(object):
+    DEFAULT_COLOUR = "black"
+    def __init__(self, make, colour=None):
+        self.make = make
+        if colour:
+            self.colour = colour
+        else:
+            # self.colour = Car.DEFAULT_COLOUR
+            self.colour = self.DEFAULT_COLOUR
+
+car_1 = Car("bmw")
+print(car_1.colour)
+car_2 = Car("honda", "red")
+print(car_2.colour)
+```
+
+```
+black
+red
+```
+
+### Keeping an Instance ID
+
+One use case of a class attribute is having an id variable which keeps track of how many instances have been created. We could use something like this to keep track of how many players are in a game or to give each instance a unique id.
+
+>[!NOTE]
+>We need to use the *class name* when *setting* values to class attributes from within methods - self will not work
+
+```python
+class Player(object):
+    ACTIVE_PLAYERS = 0
+    DEFAULT_NAME = "anon"
+    def __init__(self, name=None):
+        if name:
+            self.name = name
+        else:
+            self.name = self.DEFAULT_NAME
+        Player.ACTIVE_PLAYERS += 1 # use the class name
+    
+    def logout(self):
+        Player.ACTIVE_PLAYERS -= 1 # use the class name
+        return(f"{self.name} logged out.")
+    
+p1 = Player("Barry")
+p2 = Player()
+print(Player.ACTIVE_PLAYERS)
+print(p1.logout())
+print(Player.ACTIVE_PLAYERS)
+```
+
+```
+2
+Barry logged out.
+1
+```
+
+### Class Methods
+
+Class methods are methods which are linked to a class rather than an instance of a class. We use them when the method does not need to know anything about the specifics of an instance whereas we use instance methods when the method does need to know something about the instance which is calling it.
+
+>[!NOTE]
+>Class methods often end up being used when a developer can not think of anywhere else to put the method - even though this is not ideal it happens
+
+Class methods are defined following the `@classmethod` *decorator* and they use `cls` as the first passed argument rather than `self`.
+
+```python
+class Pets(object):
+    PETS_CREATED = 0
+    @classmethod
+    def get_pet_number(cls):
+        return cls.PETS_CREATED
+    
+    def __init__(self, species, name="Billybob"):
+        self.name = name
+        self.species = species
+        Pets.PETS_CREATED += 1
+    
+cat_1 = Pets("cat")
+print(Pets.get_pet_number())
+fish_1 = Pets("catfish", "mobydick")
+print(Pets.get_pet_number())
+print(cat_1.name)
+print(fish_1.name)
+```
+
+```
+1
+2
+Billybob
+mobydick
+```
+
+#### Class Method Example
+
+Another example of when a class method could be used is when we want to turn data from one format to another before it is sent to the `__init__` method.
+
+This example shows data which is in the form of a csv list coming into the method and then being unpacked into different data types before being sent to the `__init__` method to create an instance.
+
+```python
+class Book(object):
+    @classmethod
+    def from_str(cls, data_str):
+        title, pages, price = data_str.split(",")
+        # we pass the unpacked data to __init__
+        return Book(title, pages, price)
+    
+    def __init__(self, title, pages, price):
+        self.title = title
+        self.pages = int(pages)
+        self.price = float(price)
+
+# we unpack csv data using a class method
+book_1 = Book.from_str("Matilda,382,2.99")
+print(book_1.title)
+```
+
+```
+Matilda
+```
+
+### Inheritance
+
+Classes can *inherit* attributes and methods from other classes - this is known as *inheritance*. Methods are inherited and anything else which has been defined at a *class level* such as *class attributes*. Attributes defined in an `__init__()` method are not inherited though there is a way to achieve this - covered below in the `super()` section.
+
+This is useful because we might want to use the same attributes and / or methods which are already in a class. We can also modify these things once a class has inherited them.
+
+An example might be we have a parent class which defines what a vehicle can do, and we then want to create a class to specify what a motorcycle can do and one which specifies what a car can do. Since both are vehicles they will need to inherit from the Vehicle class - we can then add methods and attributes which are specific to motorcycles and cars. In this way, we build on parent classes.
+
+If we modify a parent method in a child class, python will look in the child class first and use that method rather than the one in the parent class. If the method does not exist in the child class, python will bubble up and look for it in the parent class.
+
+In order to use inheritance, we pass the *parent* class to the *child* class as an argument to its definition.
+
+A good way to understand *inheritance* is to think: *child is a / an parent* for example *`Fish` is an `Animal`*
+
+```python
+class Animal:
+    plant = False
+    def __init__(self):
+        self.eyes = 2
+        
+    def breathe(self):
+        return "I am breathing."
+    
+    def defending(self):
+        return "I am defending my territory."
+    
+class Fish(Animal):
+    def __init__(self, species):
+        self.species = species
+    
+    def breathe(self):
+        return "I am breathing underwater."
+    
+    def swim(self):
+        return "I am swimming."
+
+nemo = Fish("clownfish")
+print(nemo.species) # this attribute is found in the Fish class
+print(nemo.defending()) # this method is inherited from Animal()
+print(nemo.breathe()) # this is modified in Fish()
+print(nemo.swim()) # this is added in Fish()
+print(nemo.plant) # class attributes are inherited
+# attributes from Animal __init__ are not inherited
+# so the below line of code will throw an error
+
+# print(nemo.eyes)
+
+# checking classes the nemo object belongs to
+print(isinstance(nemo, Fish)) # True
+print(isinstance(nemo, Animal)) # True
+```
+
+```
+clownfish
+I am defending my territory.
+I am breathing underwater.
+I am swimming.
+False
+True
+True
+```
+
+### super()
+
+We can use `super()` from a child class to have access to anything we specify from the parent aka super class.
+
+Coming back to the example above, we can get the initialization attributes from the `Animal()` class into the `Fish()` class by using `super().__init__()` in the `Fish()` class `_init__(self)` method. The example below shows this for a different `Animal()` subclass.
+
+```python
+class Bird(Animal):
+    def __init__(self):
+        super().__init__()
+    
+duck = Bird()
+print(duck.eyes) # this can now be accessed
+```
+
+```
+2
+```
+
+>[!NOTE]
+>We can use `super()` to access *anything* from the super class - another example is provided below
+
+#### super() example
+
+Sometimes, subclasses need to "override" a method to provide its own functionality. Example - in our company we have two different types of Employee - Developers and Managers.
+
+Each employee has a salary method, which returns the yearly salary of the employee as a function of her base salary + an extra based on years of experience. It works similarly for both Manager and Developers so we put all that common functionality in a super class called `Employee`
+
+```python
+class Employee:
+    def __init__(self, name, base_salary, years):
+        self.name = name
+        self.base_salary = base_salary
+        self.years = years
+        
+    def salary(self):
+        return self.base_salary + (self.years * 1000)
+```
+
+Developers are regular employees, so they just extend directly from `Employee` without making any modifications.
+
+```python
+class Developer(Employee):
+    pass
+
+mary = Developer('Mary Smith', 70_000, 6)
+print(mary.salary())
+```
+
+```
+76000
+```
+
+Managers make a little bit extra money - because they are clearly more important than the deveoplers who are actually doing the work :roll_eyes: - they make 10% more of the computed salary.
+
+We need to rewrite the `salary()` method with a modification in the `Manager` class, but this wastes time since we are repeating code.
+
+```python
+class Manager(Employee):
+    def salary(self):
+        return (self.base_salary + (self.years * 1000)) * 1.1
+
+jane = Manager('Jane Sanchez', 70_000, 6)
+print(jane.salary())
+```
+
+```
+83600.0
+```
+
+As we can see, with the same parameters, Jane is making more money.
+
+Repeating the whole method again is not a great idea, though. We just need the regular salary defined in the class `Employee` and then we can add an extra 10% on top of that.
+
+We can use `super()` in order to do this - it will allow us to reference methods implemented in parent classes.
+
+```python
+class Manager(Employee):
+    def salary(self):
+        return super().salary() * 1.1 # uses super()
+
+jane = Manager('Jane Sanchez', 70_000, 6)
+print(jane.salary())
+```
+
+```
+83600.0
+```
+
+`super()` gives us access to the *super* class and from there we can access *anything* from that *parent* class.
