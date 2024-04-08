@@ -843,7 +843,7 @@ John Jones
 False
 ```
 
-### __init___
+### Initializing
 
 We can use the `__init__` method to set attributes on objects when they are instansiated from a class.
 
