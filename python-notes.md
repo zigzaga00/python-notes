@@ -1229,3 +1229,39 @@ print(jane.salary())
 ```
 
 `super()` gives us access to the *super* class and from there we can access *anything* from that *parent* class.
+
+## Working with Files
+
+### Reading
+
+We can open tiles using syntax as shown below.
+
+```python
+file = open("file.txt")
+contents = file.read()
+print(contents)
+file.close()
+```
+
+We can simplify this code by using the `with` `as` keywords - we do not have to close the file as the `with` keyword will do this automatically.
+
+```python
+with open("file.txt") as file:
+    contents = file.read()
+    print(contents)
+```
+
+### Writing
+
+We can use similar syntax to reading files to write to files.
+
+```python
+with open("file.txt", mode="w") as file:
+    file.write("hello world!")
+```
+
+We need to use `"w"` as the mode so we can write to the file. This will overwrite the contents of the file.
+
+>[!TIP]
+>We can use `mode="a"` if we want to *append* data to a file
+
