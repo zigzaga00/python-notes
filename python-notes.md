@@ -1139,6 +1139,92 @@ True
 True
 ```
 
+### Polymorphism
+
+This is simply the idea that one thing can take many forms. In Python, this relates to the concept of what `self` is.
+
+The following code shows how we could define the `__str__` magic method in several related classes.
+
+```python
+class Vehicle(object):
+    def __str__(self):
+        return "Object: Vehicle"
+
+class Car(Vehicle):
+    def __str__(self):
+        return "Object: Car"
+    
+class Airplane(Vehicle):
+    def __str__(self):
+        return "Object: Airplane"
+```
+
+There is a lot of repetition - there must be an easier way to do this.
+
+We could just define one `__str__` method at the top level class and use polymorphism to dynamically alter the returned values.
+
+>[!TIP]
+>When we notice common patterns in methods we tend to define one method at the top level class
+
+In the example below we define `__str__` at the top level class which is `Vehicle` and code it so that it dynamically retrieves the class name of `self` - the question arises - what is `self`?
+
+```python
+class Vehicle(object):
+    def __str__(self):
+        return "Object: {}".format(self.__class__.__name__)
+
+class Car(Vehicle):
+    pass
+    
+class Airplane(Vehicle):
+    pass
+```
+
+The value of `self` will depend on the type of object which called the `__str__` method. For an `Airplane` object `self` will be `Airplane` whilst for a `Car` object `self` will be `Car`
+
+The resulting output is shown below.
+
+```python
+a = Airplane()
+c = Car()
+
+print(a)
+print(c)
+```
+
+```
+Object: Airplane
+Object: Car
+```
+
+The above example shows us *polymorphism* in action - Python is determining the value of `self` at runtime.
+
+Another example is given below.
+
+```python
+class Vehicle(object):
+    def move(self):
+        my_sound = self.sound()
+        print("I'm moving, and I sound: {}".format(my_sound))
+
+class Car(Vehicle):
+    def sound(self):
+        return "Brooooom"
+    
+class Airplane(Vehicle):
+    def sound(self):
+        return "Nnneeaoowww"
+
+a = Airplane()
+a.move()
+c = Car()
+c.move()
+```
+
+```
+I'm moving, and I sound: Nnneeaoowww
+I'm moving, and I sound: Brooooom
+
 ### super()
 
 We can use `super()` from a child class to have access to anything we specify from the parent aka super class.
