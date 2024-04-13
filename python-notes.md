@@ -1077,6 +1077,153 @@ print(book_1.title)
 Matilda
 ```
 
+### Magic Methods
+
+Magic methods simply refers to methods which we do not invoke directly - python invokes them for us.
+
+The most common magic method is `__init__` becuase we use it in every class we create. This method is magic because we do not directly invoke it - python invokes it when we instantiate a new object from a class.
+
+>[!NOTE]
+>Magic methods are also known as *dunder methods* because of the double underscore at the start and end of them
+
+#### __str__
+
+The `__str__` magic method returns a human readable string representation of an object. This is used so we know more easily what each object is. We could see this as a human way to refer to objects - in the example below we will be thinking about motorcycles - the human way to refer to one is something like *honda fireblade*
+
+```python
+class Motorcycle():
+    def __init__(self, make, model, cc, year):
+        self.make = make
+        self.model = model
+        self.cc = cc
+        self.year = year
+    
+    def __str__(self):
+        return f"{self.cc}cc {self.make} {self.model} ({self.year})"
+
+bike_1 = Motorcycle("honda", "fireblade", 650, 2008)
+print(bike_1) # without the __str__ magic method we could get a memory address returned
+```
+
+```
+650cc honda fireblade (2008)
+```
+
+>[!NOTE]
+>Without the `__str__` magic method we would get a memory address returned - for example: `<__main__.Motorcycle object at 0x7f6e04e27850>`
+
+#### __repr__
+
+The `__repr__` magic method is like the `__str__` magic method but it is more for machines rather than humans.
+
+It will look more like code than regular human language.
+
+```python
+class Motorcycle():
+    def __init__(self, make, model, cc, year):
+        self.make = make
+        self.model = model
+        self.cc = cc
+        self.year = year
+    
+    def __repr__(self):
+        return f"Motorcycle(make={self.make}, model={self.model}, cc={self.cc}, year={self.year})"
+bike_1 = Motorcycle("honda", "fireblade", 650, 2008)
+bike_1 # if we use print() we will invoke __str__
+```
+
+```
+Motorcycle(make=honda, model=fireblade, cc=650, year=2008)
+```
+
+>[!TIP]
+>The returned value of `__repr__` should ideally be able to be used to instantiate a new object from a class
+
+### Interfaces and Magic Methods
+
+Interfaces are ways which we can interact with the attributes and methods of objects.
+
+Python uses the same interfaces for lots of different things.
+
+An example of this is the `+` operator which can be used to add integers, concatanate strings, join lists and more.
+
+Another example is the `in` keyword for testing membership. This can be used to check if characters are in strings, objects are in lists, integers are in ranges and more.
+
+One more example is how we can use `[]` to access elements in lists, items in dictionaries, characters in strings and more.
+
+We can implement these interfaces - and many more - by using *magic methods* in our own classes.
+
+>[!IMPORTANT]
+>We want to make interaction with objects instantiated from our own classes as intuitive as possible - we therefore like to use interfaces which are consistent
+
+An example of this is given below.
+
+We can imagine that we are creating card games and in order to do so we have created a class for card objects.
+
+The card objects have a value attribute which we intend to be used to add the values of cards together.
+
+```python
+class Card():
+    def __init__(self, value, suit):
+        self.value = value
+        self.suit = suit
+
+hearts_5 = Card(5, "hearts")
+diamonds_8 = Card(8, "diamonds")
+
+print(hearts_5.value)
+print(diamonds_8.value)
+```
+
+```
+5
+8
+```
+
+For somebody who has not seen the code inside our class, the most intuitive way to add the values of `Card` objects together would be to use the commonly used `+` operator as the interface. This, however, does not work at the current time. If we try `hearts_5 + diamonds_8` we will receive a `TypeError`
+
+One way to implement the functionality of being able to add `Card` objects would be to define an `add` method in the class.
+
+```python
+def add(self, other_card):
+    return self.value + other_card.value
+```
+
+This works but in order to use it a developer would need to code: `total = hearts_5.add(diamonds_8)` which is not at all intuitive since it does not follow a consistent approach.
+
+There is a better way.
+
+We can use the `__add__` magic method which python gives us. This will allow developers to use the `+` operator as an interface to add together the values of `Card` objects. We simply need to make our current `add` method a *dunder* magic method: `__add__`
+
+```python
+def __add__(self, other_card):
+    return self.value + other_card.value
+```
+
+The full code of the class and an example of how a developer can now use `+` to add the values of `Card` objects is given below.
+
+```python
+class Card():
+    def __init__(self, value, suit):
+        self.value = value
+        self.suit = suit
+    
+    def __add__(self, other_card):
+        return self.value + other_card.value
+
+hearts_5 = Card(5, "hearts")
+diamonds_8 = Card(8, "diamonds")
+
+total = hearts_5 + diamonds_8
+
+print(total)
+```
+
+By using magic methods in this way, we can make working with classes which we create a lot more intuitive. The reason for this is that as humans we will use what we already know when we approach new things. In this case, if a developer wants to add together two cards in a game they are creating which uses objects instantiated from our `Card` class, they will naturally try `+` first of all and they will expect it to work as intended - we can make this happen using the `__add__` magic method.
+
+>[!IMPORTANT]
+>Using *magic methods* makes our python code clean and easy to work with
+
 ### Inheritance
 
 Classes can *inherit* attributes and methods from other classes - this is known as *inheritance*. Methods are inherited and anything else which has been defined at a *class level* such as *class attributes*. Attributes defined in an `__init__()` method are not inherited though there is a way to achieve this - covered below in the `super()` section.
