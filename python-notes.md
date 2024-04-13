@@ -1224,6 +1224,69 @@ By using magic methods in this way, we can make working with classes which we cr
 >[!IMPORTANT]
 >Using *magic methods* makes our python code clean and easy to work with
 
+### Equality and Magic Methods
+
+Before we consider how we can use the `__eq__` magic method in python, it is worth taking the time to reflect on what it means to say that things are *equal*.
+
+Let us take two shirts as an example. We might say that they are equal if they are the same colour and same size. This works for everyday use - for example when buying a shirt we will generally consider all of the small white shirts to be the same and therefore choose any of them off the rack.
+
+But some people might be more picky and realise that some of the shirts have imperfections such as small holes in them or a thread of coton sticking out somewhere. In this view of being equal, we might consider 7 of the 10 shirts on the rack as being equal because we cannot see imperfections but the other three as not being equal because they have some kind of problem. We would then choose one of the seven shirts which we consider to be equal.
+
+Somebody else might think about it more and realise that on an atomic level of course none of the shirts are equal - each one has a different atomic configuration.
+
+We therefore define equality in a relative way which suits the needs of the context we are working in.
+
+#### Equality in Python Using ==
+
+By default, when python checks equality using `==` it performs a strict check which means it is checking if the two objects have the same space in memory. It will return `True` if they do and `False` if they do not.
+
+```python
+clubs_3 = Card(3, "clubs")
+spades_3 = Card(3, "spades")
+
+print(clubs_3 == spades_3)
+print(id(clubs_3))
+print(id(spades_3))
+```
+
+```
+False
+0x7f58c9477f70
+0x7f58c9477f10
+```
+
+##### __eq__
+
+We can define in our own classes what we want equality to mean. This can be achieved by using the `__eq__` magic method which will then let developers use `==` to check equality of objects instantiated from our class in a specified way.
+
+>[!CAUTION]
+>Before using `__eq__` we need to very carefully consider what equality means in our class and whether or not that will ever change
+
+We could, for example, decide that for `Card` objects we want their equality to be based on their values. In this case, we could use the `__eq__` magic method as shown below.
+
+```python
+def __eq__(self, other_card):
+    return self.value == other_card.value
+
+clubs_3 = Card(3, "clubs")
+spades_3 = Card(3, "spades")
+
+print(clubs_3 == spades_3)
+print(hearts_5 == spades_3)
+```
+
+```
+True
+False
+```
+
+We need to be careful before we use `__eq__` What if in this example we need equality to be based on the suit rather than the value? Problems such as this could lead to lots of work refactoring code.
+
+>[!NOTE]
+>We do not lose the ability to perform strict memory location equality checks if we implement our own version of `__add__` because the `is` keyword still does it
+
+There are other comparison magic methods available such as `__lt__` for less than and `__gt__` for greater than.
+
 ### Inheritance
 
 Classes can *inherit* attributes and methods from other classes - this is known as *inheritance*. Methods are inherited and anything else which has been defined at a *class level* such as *class attributes*. Attributes defined in an `__init__()` method are not inherited though there is a way to achieve this - covered below in the `super()` section.
